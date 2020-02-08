@@ -11,10 +11,10 @@ FLAGS = -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@clang++ $(FLAGS) -o $(NAME) $(OBJ) -I ./
+	clang++ $(FLAGS) -o $(NAME) $(OBJ) -I ./
 
 %.o: %.cpp
-	@clang++ $(FLAGS) -o $@ -c $< -I ./
+	clang++ $(FLAGS) -o $@ -c $< -I ./
 
 clean:
 	@/bin/rm -f $(OBJ)
