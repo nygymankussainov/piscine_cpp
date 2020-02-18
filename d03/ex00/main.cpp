@@ -3,10 +3,9 @@
 
 int		main( void ) {
 
-	FragTrap naruto( "Naruto" );
-	FragTrap sasuke("Sasuke");
+	FragTrap ft( "Eltac" );
+	FragTrap ft2 = ft;
 
-	naruto.meleeAttack( "Sasuke" );
-	sasuke.vaulthunter_dot_exe("Naruto");
+	ft2.vaulthunter_dot_exe( "Iles" );
 	return 0;
 }
