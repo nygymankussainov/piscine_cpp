@@ -10,8 +10,8 @@ int		main( void ) {
 	ScavTrap st( "ST" );
 	ScavTrap st1 = st;
 
-	std::cout << ft.getHP() << std::endl;
-	std::cout << st.getHP() << std::endl;
+	std::cout << ft2.getHP() << std::endl;
+	std::cout << st1.getHP() << std::endl;
 	ft.vaulthunter_dot_exe( "Vlad" );
 	st.challengeNewcomer( "Andrey" );
 	return 0;
