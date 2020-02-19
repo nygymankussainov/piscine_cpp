@@ -1,5 +1,5 @@
-#ifndef NINIJATRAP_HPP
-# define NINIJATRAP_HPP
+#ifndef NINJATRAP_HPP
+# define NINJATRAP_HPP
 
 # include <iostream>
 # include "ClapTrap.hpp"
