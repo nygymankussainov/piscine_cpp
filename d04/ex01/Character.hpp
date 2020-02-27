@@ -9,18 +9,18 @@
 
 class Character {
 
-	protected:
+	private:
 
 		std::string _name;
 		int			_AP;
-		AWeapon*	_currWeapon;
+		AWeapon		*_currWeapon;
 
 	public:
 
 		Character( void );
 		Character( std::string const & name );
 		Character( Character const & src );
-		virtual ~Character( void );
+		~Character( void );
 		Character &	operator=( Character const & rhs );
 
 		void	recoveryAP( void );

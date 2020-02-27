@@ -60,13 +60,15 @@ void	Character::recoveryAP( void ) {
 void	Character::equip( AWeapon* weapon ) {
 
 	this->_currWeapon = weapon;
-	this->_AP -= weapon->getAPCost();
-	if ( this->_AP < 0 )
-		this->_AP = 0;
 }
 
 void	Character::attack( Enemy* target ) {
 
+	int tmp = this->_AP;
+	tmp -= this->_currWeapon->getAPCost();
+	if ( tmp < 0 )
+		return;
+	this->_AP = tmp;
 	if ( this->getAP() > 0 && this->getAWeapon() != NULL ) {
 
 		std::cout << this->getName()
@@ -76,7 +78,7 @@ void	Character::attack( Enemy* target ) {
 		this->getAWeapon()->attack();
 		target->takeDamage( this->getAWeapon()->getDamage() );
 		if ( target->getHP() <= 0 )
-			target = NULL;
+			delete target;
 	}
 }
 
