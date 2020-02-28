@@ -12,7 +12,10 @@ Squad::Squad( void ) {
 
 Squad::Squad( Squad const & src ) {
 
-	*this = src;
+	this->_destroyUnits();
+	this->_unitNb = 0;
+	this->_copyUnits( src );
+	this->_unitNb = src.getCount();
 }
 
 Squad &	Squad::operator=( Squad const & rhs ) {
@@ -29,7 +32,7 @@ Squad &	Squad::operator=( Squad const & rhs ) {
 
 Squad::~Squad( void ) {
 
-	this->_destroyUnits();
+	_destroyUnits();
 	return;
 }
 
@@ -95,7 +98,7 @@ int		Squad::push( ISpaceMarine* marine ) {
 	t_units *newUnit = new t_units;
 	newUnit->next = NULL;
 	newUnit->index = this->_unitNb;
-	newUnit->marine = marine->clone();
+	newUnit->marine = marine;
 	if ( this->units == NULL )
 		this->units = newUnit;
 	else

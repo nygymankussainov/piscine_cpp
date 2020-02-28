@@ -28,7 +28,7 @@ TacticalMarine::~TacticalMarine( void ) {
 
 ISpaceMarine*	TacticalMarine::clone( void ) const {
 
-	ISpaceMarine* copy = new TacticalMarine(*this);
+	ISpaceMarine* copy = new TacticalMarine;
 	return copy;
 }
 

@@ -28,7 +28,7 @@ AssaultTerminator::~AssaultTerminator( void ) {
 
 ISpaceMarine*	AssaultTerminator::clone( void ) const {
 
-	ISpaceMarine* copy = new AssaultTerminator(*this);
+	ISpaceMarine* copy = new AssaultTerminator;
 	return copy;
 }
 
