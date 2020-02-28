@@ -19,6 +19,6 @@ int main( void )
 		cur->rangedAttack();
 		cur->meleeAttack();
 	}
-	delete (vlc);
+	delete vlc;
 	return 0;
 }
