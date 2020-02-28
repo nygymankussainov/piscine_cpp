@@ -12,6 +12,8 @@ int main( void )
 	ISquad* vlc = new Squad;
 	vlc->push(bob);
 	vlc->push(jim);
+	ISquad *vlc_copy = new Squad;
+	vlc_copy = vlc;
 	for ( int i = 0; i < vlc->getCount(); ++i )
 	{
 		ISpaceMarine* cur = vlc->getUnit(i);
@@ -20,5 +22,6 @@ int main( void )
 		cur->meleeAttack();
 	}
 	delete vlc;
+	delete vlc_copy;
 	return 0;
 }

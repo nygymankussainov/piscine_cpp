@@ -19,14 +19,14 @@ class Squad : public ISquad {
 	private:
 		int			_unitNb;
 		t_units*	units;
-
+		void	_destroyUnits( void );
+		void	_copyUnits( Squad const & src );
 
 	public:
 		Squad( void );
 		Squad( Squad const & src );
 		Squad &	operator=( Squad const & rhs );
 		virtual ~Squad( void );
-		void	destroyUnits( void );
 		t_units	*find_unit( t_units* units, ISpaceMarine* marine );
 
 		virtual int getCount( void ) const;

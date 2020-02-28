@@ -17,39 +17,33 @@ Squad::Squad( Squad const & src ) {
 
 Squad &	Squad::operator=( Squad const & rhs ) {
 
-	this->_unitNb = rhs._unitNb;
-	this->units = NULL;
-	Squad tmp = rhs;
-	t_units *head = NULL;
-	while ( tmp.units ) {
-		
-		t_units *newUnits = new t_units;
-		newUnits->next = NULL;
-		newUnits->marine = tmp.units->marine->clone();
-		newUnits->index = tmp.units->index;
-		if ( this->units == NULL) {
+	if ( this != &rhs ) {
 
-			this->units = newUnits;
-			head = this->units;
-		}
-		else {
-
-			this->units->next = newUnits;
-			this->units = this->units->next;
-		}
-		tmp.units = tmp.units->next;
+		this->_destroyUnits();
+		this->_unitNb = 0;
+		this->_copyUnits( rhs );
+		this->_unitNb = rhs.getCount();
 	}
-	this->units = head;
 	return *this;
 }
 
 Squad::~Squad( void ) {
 
-	destroyUnits();
+	this->_destroyUnits();
 	return;
 }
 
-void	Squad::destroyUnits( void ) {
+void	Squad::_copyUnits( Squad const & src ) {
+
+	t_units *tmp = src.units;
+	for ( int i = 0; i < src.getCount(); ++i ) {
+
+		this->push( tmp->marine );
+		tmp = tmp->next;
+	}
+}
+
+void	Squad::_destroyUnits( void ) {
 
 	while ( this->units ) {
 
@@ -101,7 +95,7 @@ int		Squad::push( ISpaceMarine* marine ) {
 	t_units *newUnit = new t_units;
 	newUnit->next = NULL;
 	newUnit->index = this->_unitNb;
-	newUnit->marine = marine;
+	newUnit->marine = marine->clone();
 	if ( this->units == NULL )
 		this->units = newUnit;
 	else
