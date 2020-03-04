@@ -1,10 +1,10 @@
-#include <iostream>
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 Bureaucrat::Bureaucrat( void ) {
 
 	this->_name = "unnammed";
-	this->_grade = 0;
+	this->_grade = 1;
 	return;
 }
 
@@ -47,15 +47,21 @@ int				Bureaucrat::getGrade( void ) const {
 
 void		Bureaucrat::setGrade( int amount ) {
 
-	if ( amount > 150 ) {
+	try {
+		if ( amount > 150 ) {
 
-		throw Bureaucrat::GradeTooLowException();
-	}
-	else if ( amount < 1 ) {
+			throw Bureaucrat::GradeTooLowException();
+		}
+		else if ( amount < 1 ) {
 
-		throw Bureaucrat::GradeTooHighException();
+			throw Bureaucrat::GradeTooHighException();
+		}
+		this->_grade = amount;
 	}
-	this->_grade = amount;
+	catch ( std::exception & e ) {
+
+		std::cerr << e.what() << std::endl;
+	}
 }
 
 Bureaucrat::GradeTooHighException::GradeTooHighException( void ) {
@@ -112,20 +118,50 @@ const char*	Bureaucrat::GradeTooLowException::what( void ) const throw() {
 
 void	Bureaucrat::incrementGrade( void ) {
 
-	if ( this->getGrade() - 1 < 1 ) {
+	try {
+		if ( this->getGrade() - 1 < 1 ) {
 
-		throw Bureaucrat::GradeTooHighException();
+			throw Bureaucrat::GradeTooHighException();
+		}
+		--this->_grade;
 	}
-	--this->_grade;
+	catch ( std::exception & e ) {
+
+		std::cerr << e.what() << std::endl;
+	}
 }
 
 void	Bureaucrat::decrementGrade( void ) {
 
-	if ( this->getGrade() + 1 > 150 ) {
+	try {
+		if ( this->getGrade() + 1 > 150 ) {
 
-		throw Bureaucrat::GradeTooLowException();
-	} 
-	++this->_grade;
+			throw Bureaucrat::GradeTooLowException();
+		} 
+		++this->_grade;
+	}
+	catch ( std::exception & e ) {
+
+		std::cerr << e.what() << std::endl;
+	}
+}
+
+void	Bureaucrat::signForm( Form & f ) {
+
+	try {
+
+		if ( f.beSigned(*this) == false ) {
+
+			std::cout << this->getName() << " cannot sign " << f.getName()
+				<< " because ";
+			throw Bureaucrat::GradeTooLowException();
+		}
+		std::cout << this->getName() << " signs " << f.getName() << std::endl;
+	}
+	catch ( std::exception & e ) {
+
+		std::cerr << e.what() << std::endl;
+	}
 }
 
 std::ostream &	operator<<( std::ostream & o, Bureaucrat const & rhs ) {
