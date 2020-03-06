@@ -62,19 +62,25 @@ void	OfficeBlock::doBureaucraccy( std::string const & name, std::string const & 
 		if ( this->getIntern() == NULL )
 			throw OfficeBlock::NoInternException();
 		Form* form = this->getIntern()->makeForm( name, target );
+		if ( form == NULL )
+			throw "";
 		if ( this->getSigner() == NULL )
 			throw OfficeBlock::NoSignerException();
 		this->getSigner()->signForm( *form );
 		if ( this->getExecutor() == NULL )
 			throw OfficeBlock::NoExecutorException();
 		this->getExecutor()->executeForm( *form );
-		std::cout << "That'll do, " << target << ". That'll do ..." << std::endl;
 		delete form;
 	}
 	catch ( std::exception & e ) {
 
 		std::cerr << e.what() << std::endl;
 	}
+	catch ( ... ) {
+
+		return;
+	}
+	std::cout << "That'll do, " << target << ". That'll do ..." << std::endl;
 }
 
 OfficeBlock::NoInternException::NoInternException( void ) {

@@ -124,35 +124,49 @@ void	Bureaucrat::decrementGrade( void ) {
 
 void	Bureaucrat::signForm( Form & f ) {
 
-	if ( f.beSigned(*this) == false ) {
+	try {
 
-		std::cout << this->getName() << " cannot sign " << f.getName()
-			<< " because ";
-		throw Form::GradeTooLowException();
+		if ( f.beSigned(*this) == false ) {
+
+			std::cout << this->getName() << " cannot sign " << f.getName()
+				<< " because ";
+			throw Form::GradeTooLowException();
+		}
+		std::cout << "Bureaucrat " << this->getName() << " (Grade "
+			<< this->getGrade() << ") signs a " << f.getName()
+			<< " Form (s.grade " << f.getGradeToSign() << ", ex.grade "
+			<< f.getGradeToExec() << ") targeted on " << f.getTarget()
+			<< " (";
+		if ( f.isSigned() == true )
+			std::cout << "Unsigned)" << std::endl;
+		else
+			std::cout << "Signed)" << std::endl;
 	}
-	std::cout << "Bureaucrat " << this->getName() << " (Grade "
-		<< this->getGrade() << ") signs a " << f.getName()
-		<< " Form (s.grade " << f.getGradeToSign() << ", ex.grade "
-		<< f.getGradeToExec() << ") targeted on " << f.getTarget()
-		<< " (";
-	if ( f.isSigned() == true )
-		std::cout << "Unsigned)" << std::endl;
-	else
-		std::cout << "Signed)" << std::endl;
+	catch ( std::exception & e ) {
+
+		std::cerr << e.what() << std::endl;
+	}
 }
 
 void	Bureaucrat::executeForm( Form const & form ) {
 
-	form.execute( *this );
-	std::cout << "Bureaucrat " << this->getName() << " (Grade "
-		<< this->getGrade() << ") executes a " << form.getName()
-		<< " Form (s.grade " << form.getGradeToSign() << ", ex.grade "
-		<< form.getGradeToExec() << ") targeted on " << form.getTarget()
-		<< " (";
-	if ( form.isSigned() == true )
-		std::cout << "Signed)" << std::endl;
-	else
-		std::cout << "Unsigned)" << std::endl;
+	try {
+
+		form.execute( *this );
+		std::cout << "Bureaucrat " << this->getName() << " (Grade "
+			<< this->getGrade() << ") executes a " << form.getName()
+			<< " Form (s.grade " << form.getGradeToSign() << ", ex.grade "
+			<< form.getGradeToExec() << ") targeted on " << form.getTarget()
+			<< " (";
+		if ( form.isSigned() == true )
+			std::cout << "Signed)" << std::endl;
+		else
+			std::cout << "Unsigned)" << std::endl;
+	}
+	catch ( std::exception & e ) {
+
+		std::cout << e.what() << std::endl;
+	}
 }
 
 Bureaucrat::GradeTooHighException::GradeTooHighException( void ) {

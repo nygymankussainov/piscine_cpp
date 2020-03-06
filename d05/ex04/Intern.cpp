@@ -28,21 +28,28 @@ Intern::~Intern( void ) {
 Form *	Intern::makeForm( std::string const & name, std::string const & target ) {
 
 	Form* newForm = NULL;
-	if ( name.empty() || (name != "Shrubbery" && name != "Robotomy" && name != "Presidential") )
-		throw Intern::UnknownFormException();
-	if ( name == "Shrubbery" )
-		newForm = new ShrubberyCreationForm;
-	else if ( name == "Robotomy" )
-		newForm = new RobotomyRequestForm;
-	else
-		newForm = new PresidentialPardonForm;
-	newForm->setTarget( target );
-	std::cout << "Intern creates a " << name << " Form ( s.grade " << newForm->getGradeToSign()
-		<< ", ex.grade " << newForm->getGradeToExec() << ") targeted on " << target;
-	if ( newForm->isSigned() == true )
-		std::cout << " (Signed)" << std::endl;
-	else
-		std::cout << " (Unsigned)" << std::endl;
+	try {
+
+		if ( name.empty() || (name != "Shrubbery" && name != "Robotomy" && name != "Presidential") )
+			throw Intern::UnknownFormException();
+		if ( name == "Shrubbery" )
+			newForm = new ShrubberyCreationForm;
+		else if ( name == "Robotomy" )
+			newForm = new RobotomyRequestForm;
+		else
+			newForm = new PresidentialPardonForm;
+		newForm->setTarget( target );
+		std::cout << "Intern creates a " << name << " Form ( s.grade " << newForm->getGradeToSign()
+			<< ", ex.grade " << newForm->getGradeToExec() << ") targeted on " << target;
+		if ( newForm->isSigned() == true )
+			std::cout << " (Signed)" << std::endl;
+		else
+			std::cout << " (Unsigned)" << std::endl;
+	}
+	catch ( std::exception & e ) {
+		
+		std::cout << e.what() << std::endl;
+	}
 	return newForm;
 }
 
